@@ -78,46 +78,20 @@ contains the generated "output.txt" file once the "read_excel.py" was executed f
 ## Installation and setup
 
 ### Prerequisites
-
+Make sure the that you navigated to the backend directory.
 Before you begin, ensure that you have the following installed on your machine:
 
 - Python "3.13.3" or later : "3.13.3" version was used
 - pip (Python package installer): "pip 25.0.1" was used
 
 ### Setting Up the Project Environment
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/yourusername/production-commande-api.git
-    ```
-2. Create a virtual environment:
-    It is highly recommended to create a virtual environment to manage your project dependencies.
-
-    - For macOS/Linux:
-      ```bash
-      python3 -m venv venv
-      ```
-    - For Windows:
-      ```bash
-      python -m venv venv
-      ```
-
-3. Activate the virtual environment:
-    - For macOS/Linux:
-      ```bash
-      source venv/bin/activate
-      ```
-    - For Windows:
-      ```bash
-      .\venv\Scripts\activate
-      ```
-
-4. Install the required dependencies:
+1. Install the required dependencies:
     To run the application, navigate to the backend-BI/app directory and execute the following command:
     ```bash
     pip install -r requirements.txt
     ```
 
-5. Set up your environment variables in a `.env` file. Here’s an example `.env` file:
+2. Set up your environment variables in a `.env` file. Here’s an example `.env` file:
     `.env` would normally be ignored in `.gitignore`.⚠️ For demo/testing only. Never commit real credentials in production.
 
     ```env
