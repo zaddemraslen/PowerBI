@@ -17,26 +17,32 @@ import os
 
 # ----------------------------- Load Environment Variables -----------------------------
 # Load .env variables from root-level .env file
-env_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env')
-load_dotenv(dotenv_path=env_path)
+_env_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env')
+load_dotenv(dotenv_path= _env_path)
+
+_DB_SERVER= 'DB_SERVER'
+_DB_DATABASE= 'DB_DATABASE'
+_DB_USERNAME= 'DB_USERNAME'
+_DB_PASSWORD= 'DB_PASSWORD'
+_DB_DRIVER= 'DB_DRIVER'
 
 # Ensure all required DB connection variables are defined
-required_vars = ['DB_SERVER', 'DB_DATABASE', 'DB_USERNAME', 'DB_PASSWORD', 'DB_DRIVER']
-for var in required_vars:
+_required_vars = [_DB_SERVER, _DB_DATABASE, _DB_USERNAME, _DB_PASSWORD, _DB_DRIVER]
+for var in _required_vars:
     if os.getenv(var) is None:
         raise EnvironmentError(f"Missing required environment variable: {var}")
 
 # ----------------------------- Database URL Construction -----------------------------
 
 # Extract environment values
-server = os.getenv('DB_SERVER')
-database = os.getenv('DB_DATABASE')
-username = os.getenv('DB_USERNAME')
-password = os.getenv('DB_PASSWORD')
-driver = os.getenv('DB_DRIVER')
+_server = os.getenv('DB_SERVER')
+_database = os.getenv('DB_DATABASE')
+_username = os.getenv('DB_USERNAME')
+_password = os.getenv('DB_PASSWORD')
+_driver = os.getenv('DB_DRIVER')
 
 # Create SQLAlchemy engine (do not echo SQL for production use)
-connection_url = f"mssql+pyodbc://{username}:{password}@{server}/{database}?driver={driver.replace(' ', '+')}"
+connection_url = f"mssql+pyodbc://{_username}:{_password}@{_server}/{_database}?driver={_driver.replace(' ', '+')}"
 
 # Establishing database connection
 try:
