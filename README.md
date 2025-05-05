@@ -6,9 +6,9 @@ Welcome to the Power BI and Backend Integration project. This project includes:
 - A Power BI frontend (currently under construction) to visualize and analyze the data.
 
 
-## Please refer to the main README
+## Please refer to the README files for both the frontend and the backend
 
-For detailed instructions, setup, and usage of the backend side of the application, please read the `README.md` files located under the `backend_BI` sub-directory and `frontend_bi` sub-directory respectively for the backend and the frontend side of the application.
+For detailed instructions, setup, and usage of the backend side of the application, please read the `README.md` files located under the `backend_BI` sub-directory and `frontend_bi` sub-directory respectively for the backend and the frontend side of the application. For each setup make sure that you navigate to designated directory.
 
 # General Setup
 
