@@ -1,17 +1,16 @@
-// src/hooks/useFetchProductions.ts
 import { useEffect, useState } from 'react';
-import { fetchCommandes } from '../api/commandes';
-import { Commande} from '../types/CommandeType';
+import { fetchStocks } from '../api/stocks';
+import { Stock} from '../types/stocksType';
 
-export const useFetchCommandes = () => {
-  const [data, setData] = useState<Commande[]>([]);
+export const useFetchStocks = () => {
+  const [data, setData] = useState<Stock[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchCommandes()
+    fetchStocks()
       .then((res) => {setData(res);
-        /*console.log('Fetched commandes:', res);*/ })
+        /*console.log('Fetched stocks:', res);*/ })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   }, []);

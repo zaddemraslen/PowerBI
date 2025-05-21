@@ -8,8 +8,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TablePagination from '@mui/material/TablePagination';
+import { Stock } from '../types/stocksType';
 import TableSortLabel from '@mui/material/TableSortLabel';
-import { Commande } from '../types/CommandeType';
 
 interface Column {
     id: string;
@@ -17,7 +17,7 @@ interface Column {
   }
 
 interface Props {
-  commandes: Commande[];
+  stocks: Stock[];
   columns: Column[];
 }
 
@@ -28,18 +28,18 @@ const getValue = (obj: any, path: string): any => {
     return x;
 };
   
-const CommandeTable: React.FC<Props> = ({ commandes, columns }) => {
+const StockTable: React.FC<Props> = ({ stocks, columns }) => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [sortColumn, setSortColumn] = React.useState<string>('id_production');
     const [sortDirection, setSortDirection] = React.useState<'asc' | 'desc'>('asc');
     const columnWidths: (string | number)[] = [
-        10, // width for column 0
-        10, // width for column 1
+        5, // width for column 0
+        15, // width for column 1
+        15,
+        15,
         10,
-        10,
-        10,
-        10,
+        15
     ];
 
     const reorderedColumns = React.useMemo(() => {
@@ -64,7 +64,7 @@ const CommandeTable: React.FC<Props> = ({ commandes, columns }) => {
         setSortColumn(columnId);
       };
 
-      const sortedData = [...commandes].sort((a, b) => {
+      const sortedData = [...stocks].sort((a, b) => {
         const aValue = getValue(a, sortColumn);
         const bValue = getValue(b, sortColumn);
         if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1;
@@ -78,10 +78,10 @@ const CommandeTable: React.FC<Props> = ({ commandes, columns }) => {
       );
 
   return (
-    <Paper elevation={3}> 
+    <Paper elevation={3}>
         <TablePagination
         component="div"
-        count={commandes.length}
+        count={stocks.length}
         page={page}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}
@@ -89,7 +89,6 @@ const CommandeTable: React.FC<Props> = ({ commandes, columns }) => {
         onRowsPerPageChange={handleChangeRowsPerPage}
         sx={{
             paddingTop:0,
-            marginTop:-2,
             }}
         labelRowsPerPage="Lignes par page :"
       />
@@ -102,6 +101,7 @@ const CommandeTable: React.FC<Props> = ({ commandes, columns }) => {
                     key={col.id}
                     align="left"
                     sx={{ 
+                        
                         fontWeight: 'bold',
                         width: columnWidths[index] || 'auto',
                     }}
@@ -120,7 +120,7 @@ const CommandeTable: React.FC<Props> = ({ commandes, columns }) => {
             </TableHead>
             <TableBody>
             {paginatedData.map((row, rowIndex) => (
-                <TableRow key={row.id_commande || rowIndex}
+                <TableRow key={row.ID_Stock || rowIndex}
                     sx={{
                         backgroundColor: rowIndex % 2 === 0 ? 'rgba(29, 57, 148, 0.3)' : 'rgba(60, 57, 57, 0.1)', // adjust opacity here
                         color: rowIndex % 2 === 0 ? 'rgb(228, 231, 239)' : 'inherit',
@@ -134,7 +134,7 @@ const CommandeTable: React.FC<Props> = ({ commandes, columns }) => {
                     typeof value === 'number' && !Number.isInteger(value)
                         ? value.toFixed(2)
                         : value;
-                    //console.log("colindex: ",colIndex,": ", columnWidths[colIndex])
+                    // console.log("colindex: ",colIndex,": ", columnWidths[colIndex])
                     return (
                     <TableCell
                         key={col.id}
@@ -152,7 +152,7 @@ const CommandeTable: React.FC<Props> = ({ commandes, columns }) => {
         </TableContainer>
         <TablePagination
         component="div"
-        count={commandes.length}
+        count={stocks.length}
         page={page}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}
@@ -164,4 +164,4 @@ const CommandeTable: React.FC<Props> = ({ commandes, columns }) => {
   );
 };
 
-export default CommandeTable;
+export default StockTable;

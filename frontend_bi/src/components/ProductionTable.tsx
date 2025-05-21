@@ -136,7 +136,7 @@ const ProductionTable: React.FC<Props> = ({ productions, columns }) => {
                     typeof value === 'number' && !Number.isInteger(value)
                         ? value.toFixed(2)
                         : value;
-                    console.log("colindex: ",colIndex,": ", columnWidths[colIndex])
+                    //console.log("colindex: ",colIndex,": ", columnWidths[colIndex])
                     return (
                     <TableCell
                         key={col.id}

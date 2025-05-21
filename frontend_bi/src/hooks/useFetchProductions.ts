@@ -11,7 +11,7 @@ export const useFetchProductions = () => {
   useEffect(() => {
     fetchProductions()
       .then((res) => {setData(res);
-        console.log('Fetched productions:', res); })
+        /*console.log('Fetched productions:', res);*/ })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   }, []);

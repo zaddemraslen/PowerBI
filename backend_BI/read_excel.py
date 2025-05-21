@@ -3,13 +3,13 @@ from colorama import  Fore, Back, Style, init
 import io
 
 # read le fichier Excel
-fichier_excel = "Matis_Aerospace_Complet.xlsx"
+fichier_excel = "Matis_Aerospace_cleaned.xlsx"
 
 # Chargement  toutes les feuilles du fichier Excel
 excel_file = pd.ExcelFile(fichier_excel)
 
 # Ouvrir un fichier texte pour y écrire les résultats
-with open("logs\output.txt", "w") as file:
+with open(r"logs\output.txt", "w") as file:
     # Afficher les noms des feuilles
     sheet_names= excel_file.sheet_names
 

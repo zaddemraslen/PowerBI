@@ -1,17 +1,17 @@
 // src/hooks/useFetchProductions.ts
 import { useEffect, useState } from 'react';
-import { fetchCommandes } from '../api/commandes';
-import { Commande} from '../types/CommandeType';
+import { fetchEquipes } from '../api/equipes';
+import { Equipe} from '../types/EquipesType';
 
-export const useFetchCommandes = () => {
-  const [data, setData] = useState<Commande[]>([]);
+export const useFetchEquipes = () => {
+  const [data, setData] = useState<Equipe[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchCommandes()
+    fetchEquipes()
       .then((res) => {setData(res);
-        /*console.log('Fetched commandes:', res);*/ })
+        /*console.log('Fetched équipes:', res);*/ })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   }, []);

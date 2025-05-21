@@ -39,6 +39,7 @@ for _var in _required_vars:
 # Reconstruct the full URL
 _frontend_url = f"{_protocol}://{_host}:{_port}"
 
+print("____", _frontend_url)
 # Update this with your frontend's URL (React usually runs on port 5173)
 _origins = [
     _frontend_url,

@@ -1,29 +1,119 @@
-sheet names:Production, Machine, Stock, Équipe, Risques, Commande, Ressources, Phase Production
+sheet names:Ressources, Stock, Commande, Équipe, Production, Machine, Risques, Phase Production
 
-================================================================Info for sheet 'Production':
-   ID_Production Date_Production  ID_Commande              Produit  Quantité      Statut  Prix_Unitaire  Coût_Production  Temps_Production
-0              1      2021-01-01          101   Câblage Boeing 737     665.0    En cours          51.39         15762.74              16.0
-1              2      2024-01-02          102          Câblage 777     751.0     Terminé         167.45         32285.54              11.0
-2              3      2024-01-03          103  Harnais moteur LEAP     691.0    En cours         103.98         11933.59               7.0
-3              4      2024-01-04          104          Câblage 787     772.0  En attente         188.98         27516.29              18.0
-4              5      2024-01-05          105   Câblage Falcon 900     465.0     Terminé         198.60         12677.62              19.0
+================================================================Info for sheet 'Ressources':
+   ID_Ressource       Nom_Ressource       Type  Stock_Disponible
+0             1  Câbles électriques  Composant              1953
+1             2         Connecteurs   Matériel              1472
+2             3            Capteurs  Composant              1311
+3             4         Connecteurs  Composant              3803
+4             5         Connecteurs  Composant              1255
 
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 365 entries, 0 to 364
+Data columns (total 4 columns):
+ #   Column            Non-Null Count  Dtype 
+---  ------            --------------  ----- 
+ 0   ID_Ressource      365 non-null    int64 
+ 1   Nom_Ressource     365 non-null    object
+ 2   Type              365 non-null    object
+ 3   Stock_Disponible  365 non-null    int64 
+dtypes: int64(2), object(2)
+memory usage: 11.5+ KB
+
+
+================================================================Info for sheet 'Stock':
+   ID_Stock              Produit  Quantité_Disponible Lieu_Stockage              Type_Matière Mise_à_Jour
+0         1   Câblage Boeing 737                  340    Entrepôt B                    Câbles  2024-06-01
+1         2          Câblage 777                  494    Entrepôt C                Cartes PCB  2024-06-02
+2         3  Harnais moteur LEAP                  341    Entrepôt C  Composants électroniques  2024-06-03
+3         4          Câblage 787                  473    Entrepôt A                    Câbles  2022-06-04
+4         5   Câblage Falcon 900                  481    Entrepôt A  Composants électroniques  2022-06-05
+
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 364 entries, 0 to 363
+Data columns (total 6 columns):
+ #   Column               Non-Null Count  Dtype         
+---  ------               --------------  -----         
+ 0   ID_Stock             364 non-null    int64         
+ 1   Produit              364 non-null    object        
+ 2   Quantité_Disponible  364 non-null    int64         
+ 3   Lieu_Stockage        364 non-null    object        
+ 4   Type_Matière         364 non-null    object        
+ 5   Mise_à_Jour          364 non-null    datetime64[ns]
+dtypes: datetime64[ns](1), int64(2), object(3)
+memory usage: 17.2+ KB
+
+
+================================================================Info for sheet 'Commande':
+   ID_Commande    Client     Produit_Commandé  Quantité         Statut Date_Commande
+0          101    Airbus   Câblage Boeing 737       779     En attente    2022-05-01
+1          102  Dassault          Câblage 777      1132         Livrée    2024-05-02
+2          103  Dassault  Harnais moteur LEAP       943     En attente    2024-05-03
+3          104    Boeing          Câblage 787      1485  En production    2024-05-04
+4          105  Dassault   Câblage Falcon 900       578         Livrée    2024-05-05
+
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 364 entries, 0 to 363
+Data columns (total 6 columns):
+ #   Column            Non-Null Count  Dtype         
+---  ------            --------------  -----         
+ 0   ID_Commande       364 non-null    int64         
+ 1   Client            364 non-null    object        
+ 2   Produit_Commandé  364 non-null    object        
+ 3   Quantité          364 non-null    int64         
+ 4   Statut            364 non-null    object        
+ 5   Date_Commande     364 non-null    datetime64[ns]
+dtypes: datetime64[ns](1), int64(2), object(3)
+memory usage: 17.2+ KB
+
+
+================================================================Info for sheet 'Équipe':
+   ID_Équipe Nom_Équipe Chef_Équipe  Effectif  Nombre_Heures_Travaillées Disponibilité
+0          1   Équipe A      Hassan        10                         49    Disponible
+1          2   Équipe B      Hassan        14                         45    Disponible
+2          3   Équipe C       Mehdi        11                         46       Occupée
+3          4   Équipe D       Mehdi        18                         38     Partielle
+4          5   Équipe E      Fatima        10                         36    Disponible
+
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 499 entries, 0 to 498
+Data columns (total 6 columns):
+ #   Column                     Non-Null Count  Dtype 
+---  ------                     --------------  ----- 
+ 0   ID_Équipe                  499 non-null    int64 
+ 1   Nom_Équipe                 499 non-null    object
+ 2   Chef_Équipe                499 non-null    object
+ 3   Effectif                   499 non-null    int64 
+ 4   Nombre_Heures_Travaillées  499 non-null    int64 
+ 5   Disponibilité              499 non-null    object
+dtypes: int64(3), object(3)
+memory usage: 23.5+ KB
+
+
+================================================================Info for sheet 'Production':
+   ID_Production Date_Production  ID_Commande              Produit  Quantité      Statut  Prix_Unitaire  Coût_Production  Temps_Production
+0              1      2021-01-01          101   Câblage Boeing 737       665    En cours          51.39         15762.74              16.0
+1              2      2024-01-02          102          Câblage 777       751     Terminé         167.45         32285.54              11.0
+2              3      2024-01-03          103  Harnais moteur LEAP       691    En cours         103.98         11933.59               7.0
+3              4      2024-01-04          104          Câblage 787       772  En attente         188.98         27516.29              18.0
+4              5      2024-01-05          105   Câblage Falcon 900       465     Terminé         198.60         12677.62              19.0
+
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 364 entries, 0 to 363
 Data columns (total 9 columns):
  #   Column            Non-Null Count  Dtype         
 ---  ------            --------------  -----         
- 0   ID_Production     365 non-null    int64         
- 1   Date_Production   365 non-null    datetime64[ns]
- 2   ID_Commande       365 non-null    int64         
- 3   Produit           365 non-null    object        
- 4   Quantité          365 non-null    float64       
- 5   Statut            365 non-null    object        
- 6   Prix_Unitaire     365 non-null    float64       
- 7   Coût_Production   365 non-null    float64       
- 8   Temps_Production  365 non-null    float64       
-dtypes: datetime64[ns](1), float64(4), int64(2), object(2)
-memory usage: 25.8+ KB
+ 0   ID_Production     364 non-null    int64         
+ 1   Date_Production   364 non-null    datetime64[ns]
+ 2   ID_Commande       364 non-null    int64         
+ 3   Produit           364 non-null    object        
+ 4   Quantité          364 non-null    int64         
+ 5   Statut            364 non-null    object        
+ 6   Prix_Unitaire     364 non-null    float64       
+ 7   Coût_Production   364 non-null    float64       
+ 8   Temps_Production  364 non-null    float64       
+dtypes: datetime64[ns](1), float64(3), int64(3), object(2)
+memory usage: 25.7+ KB
 
 
 ================================================================Info for sheet 'Machine':
@@ -48,52 +138,6 @@ dtypes: datetime64[ns](1), int64(1), object(3)
 memory usage: 14.3+ KB
 
 
-================================================================Info for sheet 'Stock':
-   ID_Stock              Produit  Quantité_Disponible Lieu_Stockage              Type_Matière Mise_à_Jour
-0         1   Câblage Boeing 737                340.0    Entrepôt B                    Câbles  2024-06-01
-1         2          Câblage 777                494.0    Entrepôt C                Cartes PCB  2024-06-02
-2         3  Harnais moteur LEAP                341.0    Entrepôt C  Composants électroniques  2024-06-03
-3         4          Câblage 787                473.0    Entrepôt A                    Câbles  2022-06-04
-4         5   Câblage Falcon 900                481.0    Entrepôt A  Composants électroniques  2022-06-05
-
-<class 'pandas.core.frame.DataFrame'>
-RangeIndex: 364 entries, 0 to 363
-Data columns (total 6 columns):
- #   Column               Non-Null Count  Dtype         
----  ------               --------------  -----         
- 0   ID_Stock             364 non-null    int64         
- 1   Produit              364 non-null    object        
- 2   Quantité_Disponible  364 non-null    float64       
- 3   Lieu_Stockage        364 non-null    object        
- 4   Type_Matière         364 non-null    object        
- 5   Mise_à_Jour          364 non-null    datetime64[ns]
-dtypes: datetime64[ns](1), float64(1), int64(1), object(3)
-memory usage: 17.2+ KB
-
-
-================================================================Info for sheet 'Équipe':
-   ID_Équipe Nom_Équipe Chef_Équipe  Effectif  Nombre_Heures_Travaillées Disponibilité
-0          1   Équipe A      Hassan      10.0                       49.0    Disponible
-1          2   Équipe B      Hassan      14.0                       45.0    Disponible
-2          3   Équipe C       Mehdi      11.0                       46.0       Occupée
-3          4   Équipe D       Mehdi      18.0                       38.0     Partielle
-4          5   Équipe E      Fatima      10.0                       36.0    Disponible
-
-<class 'pandas.core.frame.DataFrame'>
-RangeIndex: 499 entries, 0 to 498
-Data columns (total 6 columns):
- #   Column                     Non-Null Count  Dtype  
----  ------                     --------------  -----  
- 0   ID_Équipe                  499 non-null    int64  
- 1   Nom_Équipe                 499 non-null    object 
- 2   Chef_Équipe                499 non-null    object 
- 3   Effectif                   499 non-null    float64
- 4   Nombre_Heures_Travaillées  499 non-null    float64
- 5   Disponibilité              499 non-null    object 
-dtypes: float64(2), int64(1), object(3)
-memory usage: 23.5+ KB
-
-
 ================================================================Info for sheet 'Risques':
    ID_Risque      Type_Risque  Gravité             Mesures_Prises    Impact
 0          1  Environnemental  Moyenne                Ventilation    Faible
@@ -114,50 +158,6 @@ Data columns (total 5 columns):
  4   Impact          364 non-null    object
 dtypes: int64(1), object(4)
 memory usage: 14.3+ KB
-
-
-================================================================Info for sheet 'Commande':
-   ID_Commande    Client     Produit_Commandé  Quantité         Statut Date_Commande
-0          101    Airbus   Câblage Boeing 737     779.0     En attente    2022-05-01
-1          102  Dassault          Câblage 777    1132.0         Livrée    2024-05-02
-2          103  Dassault  Harnais moteur LEAP     943.0     En attente    2024-05-03
-3          104    Boeing          Câblage 787    1485.0  En production    2024-05-04
-4          105  Dassault   Câblage Falcon 900     578.0         Livrée    2024-05-05
-
-<class 'pandas.core.frame.DataFrame'>
-RangeIndex: 364 entries, 0 to 363
-Data columns (total 6 columns):
- #   Column            Non-Null Count  Dtype         
----  ------            --------------  -----         
- 0   ID_Commande       364 non-null    int64         
- 1   Client            364 non-null    object        
- 2   Produit_Commandé  364 non-null    object        
- 3   Quantité          364 non-null    float64       
- 4   Statut            364 non-null    object        
- 5   Date_Commande     364 non-null    datetime64[ns]
-dtypes: datetime64[ns](1), float64(1), int64(1), object(3)
-memory usage: 17.2+ KB
-
-
-================================================================Info for sheet 'Ressources':
-   ID_Ressource       Nom_Ressource       Type  Stock_Disponible
-0             1  Câbles électriques  Composant            1953.0
-1             2         Connecteurs   Matériel            1472.0
-2             3            Capteurs  Composant            1311.0
-3             4         Connecteurs  Composant            3803.0
-4             5         Connecteurs  Composant            1255.0
-
-<class 'pandas.core.frame.DataFrame'>
-RangeIndex: 365 entries, 0 to 364
-Data columns (total 4 columns):
- #   Column            Non-Null Count  Dtype  
----  ------            --------------  -----  
- 0   ID_Ressource      365 non-null    int64  
- 1   Nom_Ressource     365 non-null    object 
- 2   Type              365 non-null    object 
- 3   Stock_Disponible  365 non-null    float64
-dtypes: float64(1), int64(1), object(2)
-memory usage: 11.5+ KB
 
 
 ================================================================Info for sheet 'Phase Production':

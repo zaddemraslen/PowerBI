@@ -1,27 +1,26 @@
 // src/components/ProductionList.tsx
 import React from 'react';
-import { useFetchProductions } from '../hooks/useFetchProductions';
-import ProductionTable from './ProductionTable';
+import { useFetchStocks } from '../hooks/useFetchStocks';
+import StockTable from './stockTable';
 import { CircularProgress , Box, Snackbar, Alert} from '@mui/material';
 
 const ProductionList: React.FC = () => {
-  const { data, loading, error } = useFetchProductions();
+  const { data, loading, error } = useFetchStocks();
   const [openError, setOpenError] = React.useState<boolean>(false); // Snackbar visibility
 
 
-  if (loading) return <Box 
-    sx={{
-        width: '100%',
-        minWidth: '100vw',
-        height: '640px', // adjust height to match your table area
-        display: 'flex',
-        
-        alignItems: 'center',
-        background: 'rgb(228, 231, 239)',
-        borderRadius:'4px',
-    }}>
-        <CircularProgress size={180}/>
-    </Box>;
+  if (loading) {return(<Box
+          sx={{
+            width: '100%',
+            height: '635px', // approximate height of your final dashboard
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'rgb(228, 231, 239)',
+          }}
+        >
+          <CircularProgress />
+        </Box>);};
 
 // If error occurs, show error Snackbar
 if (error) {
@@ -43,13 +42,17 @@ if (error) {
   const columns = data.length > 0
     ? Object.keys(data[0]).map((key) => ({
         id: key,
-        label: key.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase())
+        label: key
+        .replace(/_/g, ' ')
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ')
       }))
     : [];   
-      
+
   return (
-    <div style={{width:"100%", height:'500px', backgroundColor:'rgba(rgb(228, 231, 239))'}}>
-      <ProductionTable productions={data} columns={columns}/>
+    <div style={{width:"100%", height:'480px', backgroundColor:'rgba(rgb(228, 231, 239))'}}>
+      <StockTable stocks={data} columns={columns}/>
     </div>
   );
 };

@@ -1,14 +1,15 @@
 // src/components/ProductionList.tsx
 import React from 'react';
-import { useFetchCommandes } from '../hooks/useFetchCommandes';
-import CommandeTable from './CommandeTable';
+import { useFetchEquipes } from '../hooks/useFetchEquipes';
+import EquipesTable from './equipesTable';
 import { CircularProgress , Box, Snackbar, Alert} from '@mui/material';
 
-const CommandeList: React.FC = () => {
-  const { data, loading, error } = useFetchCommandes();
+const EquipesList: React.FC = () => {
+  const { data, loading, error } = useFetchEquipes();
   const [openError, setOpenError] = React.useState<boolean>(false); // Snackbar visibility
 
-  if (loading) {return (<Box
+
+  if (loading) {return(<Box
         sx={{
           width: '100%',
           height: '635px', // approximate height of your final dashboard
@@ -31,7 +32,7 @@ if (error) {
         autoHideDuration={6000} // Auto hide after 6 seconds
       >
         <Alert severity="error" onClose={() => setOpenError(false)} sx={{ width: '100%' }}>
-          {`Error fetching commands data: ${error}`}
+          {`Error fetching équipes data: ${error}`}
         </Alert>
       </Snackbar>
     );
@@ -41,15 +42,19 @@ if (error) {
   const columns = data.length > 0
     ? Object.keys(data[0]).map((key) => ({
         id: key,
-        label: key.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase())
+        label: key
+        .replace(/_/g, ' ')
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ')
       }))
     : [];   
       
   return (
-    <div style={{height:'480px', backgroundColor:'rgba(rgb(228, 231, 239))'}}>
-      <CommandeTable commandes={data} columns={columns}/>
+    <div style={{width:"100%", height:'500px', backgroundColor:'rgba(rgb(228, 231, 239))'}}>
+      <EquipesTable equipes={data} columns={columns}/>
     </div>
   );
 };
 
-export default CommandeList;
+export default EquipesList;

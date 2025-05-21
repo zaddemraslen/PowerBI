@@ -17,7 +17,7 @@ database = 'MatisAeroDB'
 username = 'almaa'
 password = '123456'
 
-fichier_excel = 'Matis_Aerospace_Complet.xlsx'
+fichier_excel = 'Matis_Aerospace_cleaned.xlsx'
 
 # Force ID_Commande to int in both DataFrames
 #df_commande['ID_Commande'] = df_commande['ID_Commande'].astype(int)
@@ -40,6 +40,8 @@ excel_file = pd.ExcelFile(fichier_excel)
 # Lecture des feuilles: Commande et Production
 df_commande = excel_file.parse('Commande')
 df_production = excel_file.parse('Production')
+df_equipe = excel_file.parse('Équipe')
+df_stock = excel_file.parse('Stock')
 
 # Keep only productions that have a valid commande
 valid_ids = set(df_commande['ID_Commande'])
@@ -185,3 +187,92 @@ with engine.begin() as connection: #begin()=> auto-comit if success
         print(tabulate(cmd_row_list, headers=commande_columns, tablefmt='pretty'))   
     else:
         print("\n No corresponding Commande IDs found in productions.")
+
+######################## équipe
+    if 'Équipe' in inspector.get_table_names():
+        connection.execute(text("DROP TABLE Équipe"))
+        print("Table 'Équipe' dropped.")
+
+        df_equipe.loc[df_equipe['Effectif'] <= 1, ['Nombre_Heures_Travaillées', 'Effectif']] = 0
+        df_equipe.loc[df_equipe['Effectif'] <= 1, 'Disponibilité'] = 'Occupé'
+
+    connection.execute(text("""
+        CREATE TABLE Équipe (
+            ID_Équipe INT IDENTITY(1,1),
+            Nom_Équipe NVARCHAR(255),
+            Chef_Équipe NVARCHAR(255),
+            Effectif INT,
+            Nombre_Heures_Travaillées INT,
+            Disponibilité NVARCHAR(50)
+        )
+    """))
+    connection.execute(text("SET IDENTITY_INSERT Équipe ON"))
+    df_equipe.to_sql('Équipe', con=connection, if_exists='append', index=False,
+                     dtype={
+                         'ID_Équipe': Integer(),
+                         'Effectif': Integer(),
+                         'Nombre_Heures_Travaillées': Integer()
+                     })
+    connection.execute(text("SET IDENTITY_INSERT Équipe OFF"))
+    print("Données insérées dans la table 'Équipe' avec succès.")
+
+    connection.execute(text("""
+        ALTER TABLE Équipe
+        ALTER COLUMN ID_Équipe INT NOT NULL
+    """))
+
+    connection.execute(text("""
+        ALTER TABLE Équipe
+        ADD CONSTRAINT pk_equipe PRIMARY KEY (ID_Équipe)
+    """))
+    print("Primary key constraint on Équipe created.")
+
+    ######################## Stock
+    if 'Stock' in inspector.get_table_names():
+        connection.execute(text("DROP TABLE Stock"))
+        print("Table 'Stock' dropped.")
+
+    connection.execute(text("""
+        CREATE TABLE Stock (
+            ID_Stock INT IDENTITY(1,1),
+            Produit NVARCHAR(255),
+            Quantité_Disponible INT,
+            Lieu_Stockage NVARCHAR(255),
+            Type_Matière NVARCHAR(255),
+            Mise_à_Jour DATETIME
+        )
+    """))
+    connection.execute(text("SET IDENTITY_INSERT Stock ON"))
+    df_stock.to_sql('Stock', con=connection, if_exists='append', index=False,
+                    dtype={
+                        'ID_Stock': Integer(),
+                        'Quantité_Disponible': Integer()
+                    })
+    connection.execute(text("SET IDENTITY_INSERT Stock OFF"))
+    print("Données insérées dans la table 'Stock' avec succès.")
+
+    connection.execute(text("""
+        ALTER TABLE Stock
+        ALTER COLUMN ID_Stock INT NOT NULL
+    """))
+
+    connection.execute(text("""
+        ALTER TABLE Stock
+        ADD CONSTRAINT pk_stock PRIMARY KEY (ID_Stock)
+    """))
+    print("Primary key constraint on Stock created.")
+
+    # Optional: Preview top entries
+    # Preview top 5 équipes
+    result_eq = connection.execute(text("SELECT TOP 5 * FROM Équipe"))
+    equipes = result_eq.fetchall()
+    equipe_columns = list(result_eq.keys())
+    print("\n=== Équipe (TOP 5) ===")
+    print(tabulate([list(row) for row in equipes], headers=equipe_columns, tablefmt='pretty'))
+
+    # Preview top 5 stock entries
+    result_stock = connection.execute(text("SELECT TOP 5 * FROM Stock"))
+    stocks = result_stock.fetchall()
+    stock_columns = list(result_stock.keys())
+    print("\n=== Stock (TOP 5) ===")
+    print(tabulate([list(row) for row in stocks], headers=stock_columns, tablefmt='pretty'))
