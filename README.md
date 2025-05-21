@@ -50,3 +50,76 @@ For detailed instructions, setup, and usage of the backend side of the applicati
       ```bash
       .\venv\Scripts\activate
       ```
+4. Follow the steps in the corresponding README.md files for both the backend and the front side of the application
+
+# BI Dashboard Frontend
+
+This is the **Business Intelligence (BI) dashboard** for our manufacturing data. It presents key metrics, interactive charts, and detailed tables for **Productions**, **Commandes** (Orders), **Équipes** (Teams) and **Stockage** (Stock) in a unified, tabbed interface.
+
+---
+
+## Purpose & Highlights
+
+- **Executive KPI tiles**  
+  - Best client by order  
+  - Top manufactured product  
+  - Total production cost  
+  - Estimated total revenue  
+  - Total quantity ordered  
+
+- **Distribution & Trends**  
+  - Quantity distribution bar chart with average line  
+  - Scatter plot of cost, revenue, and gain per product  
+
+- **Average Metrics**  
+  - Production time per unit  
+  - Production cost per unit  
+  - Sale price per unit  
+  - Total units in stock  
+
+- **Progress Donuts**  
+  - Production breakdown by client  
+  - Order progression (pending vs. delivered)  
+  - Production progression (in-progress, pending, complete)  
+  - Stock distribution by warehouse  
+
+- **Raw Material Bar Chart**  
+  - Inventory of cables, PCBs, components per warehouse  
+
+- **Weekly Heatmaps**  
+  - Team availability (Occupied / Partial / Available)  
+  - Team work-hours  
+  - Team headcount  
+
+- **Detailed Data Tables**  
+  - **Production**: list of all production runs  
+  - **Commandes**: list of all orders  
+  - **Équipes** (coming soon)  
+  - **Stockage** (coming soon)  
+
+---
+
+## Data Flow & Interactivity
+
+1. **Custom Hooks** (`useFetchProductions`, etc.) call backend APIs and return `{ data, loading, error }`.
+2. **Dashboard.tsx** aggregates all four datasets to render KPI tiles and charts via `HeatMapCharts`.
+3. **Heatmap Data** is transformed by:
+   - `buildTeamMap` → `teamMapToNivoData`  
+   - `getMinMax` → `getRoundedRange` for dynamic color scales  
+4. **Color Modes**:
+   - Discrete colors for availability  
+   - Continuous Turbo scale for work-hours and headcount  
+5. **Synchronized Hover**:
+   - Shared React state `hoveredCell` highlights the same `x,y` cell across all three heatmaps.
+
+---
+
+## BI-Focused Notes
+
+- **KPI Tiles**: Executive snapshot of high-value metrics.  
+- **Distribution & Trends**: Operational managers spot outliers and production bottlenecks.  
+- **Donut Charts**: Quick status breakdowns for orders, production, and inventory.  
+- **Heatmaps**: Capacity planning—visualize team availability, hours, and staffing over weeks.  
+- **Data Tables**: Analysts drill down to individual records, sort, filter, and paginate.
+
+---

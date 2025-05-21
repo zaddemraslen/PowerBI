@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { HeatmapDataPoint } from '../../types/HeatMapTypes';
 import {
   buildTeamMap,
@@ -14,8 +13,7 @@ interface HeatMapChartsProps {
 }
 
 const HeatMapCharts = ({ Availabilitydata, WorkHoursdata, Staffdata}: HeatMapChartsProps) => {
-  const [hoveredCell, setHoveredCell] = useState<{ x: string; y: string } | null>(null);
-
+  
   const A_teamMap = buildTeamMap(Availabilitydata);
   const WH_teamMap = buildTeamMap(WorkHoursdata);
   const S_teamMap = buildTeamMap(Staffdata);
