@@ -57,7 +57,7 @@ For detailed instructions, setup, and usage of the backend side of the applicati
 This is the **Business Intelligence (BI) dashboard** for our manufacturing data. It presents key metrics, interactive charts, and detailed tables for **Productions**, **Commandes** (Orders), **Équipes** (Teams) and **Stockage** (Stock) in a unified, tabbed interface.
 
 ---
-![BI Dashboard Screenshot](./screenshots/Dahsboard_overview.JPG)
+![BI Dashboard Screenshot](./screenshots/Dashboard_overview.jpg)
 ![BI Dashboard Screenshot](./screenshots/Commande_Table_tab.png)
 ![BI Dashboard Screenshot](./screenshots/Equipes_Table_tab.png)
 ![BI Dashboard Screenshot](./screenshots/Stock_Table_tab.png)
